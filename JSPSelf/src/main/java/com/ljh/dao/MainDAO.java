@@ -16,7 +16,7 @@ public class MainDAO {
 	
 	//db접속
 	public static void  mainEnter(MainDTO dto) throws SQLException,ClassNotFoundException{
-		String url="jdbc:oracle:thin:@localhost:1521:xe?useUnicode=true&characterEncoding=utf8";
+		String url="jdbc:oracle:thin:@localhost:1521:ORCL";
 		String sql="SELECT ID,PWD FROM MEMBER WHERE ID=?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");

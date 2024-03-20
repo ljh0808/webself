@@ -20,7 +20,7 @@ public class JoinDAO {
 		String name =dto.getName();
 		String email =dto.getEmail(); //dto에 저장된값 변수에저장
 		
-		url = "jdbc:oracle:thin:@localhost:1521:xe?useUnicode=true&characterEncoding=utf8";
+		url = "jdbc:oracle:thin:@localhost:1521:ORCL";
 		sql = "INSERT INTO MEMBER VALUES(?,?,?,?)";
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		

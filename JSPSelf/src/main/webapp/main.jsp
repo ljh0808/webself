@@ -13,6 +13,7 @@
 비밀번호: <input type="password" id="pwd" name="pwd"/>
 <input type="submit" id="enter" name="enter" value="접속"/>
 <button type="button" onclick="location.href='join.jsp'">회원가입</button>
+<button type="button" onclick="location.href='/ListController'">게시판</button>
 </form>
 </body>
 </html>

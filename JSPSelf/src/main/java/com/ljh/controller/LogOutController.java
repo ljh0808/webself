@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ljh.controller.MainController;
 
 @WebServlet("/enter/logout")
 public class LogOutController extends HttpServlet {
