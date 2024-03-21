@@ -5,14 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>Insert title here</title>
 </head>
 <body>
 <c:forEach var="list" items="${list}">
   no:${list.no}  
-  <a href="/ListViewController?no=${list.no}" id="${list.no}">제목:${list.title}</a>
+제목:${list.title}
     작성자:${list.writer}  작성일:${list.day}  조회수:${list.count} <br/>
+    내용 :${list.content}
+<a href="/listupdate.jsp?no=${list.no}" id="${list.no}"><button>수정</button></a>
 </c:forEach>
-<button type="button" onclick="location.href='/listadd.jsp'">글 작성</button>
-</body>
+<button type="button" onclick="location.href='/listadd.jsp'">삭제</button></body>
 </html>

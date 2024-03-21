@@ -8,7 +8,14 @@ public class ListDTO {
 	public String writer;
 	public Date day ;
 	public String count;
+	public String content;
 	
+	
+	public ListDTO(String no,String title,String content) {
+		this.no = no;
+		this.title=title;
+		this.content = content;
+	}
 	
 	public ListDTO(String no,String title,String writer,Date day,String count){
 		this.no = no;
@@ -18,6 +25,15 @@ public class ListDTO {
 		this.count = count;
 	}
 	
+	public ListDTO(String no,String title,String writer,Date day,String count
+			,String content){
+		this.no = no;
+		this.title = title;
+		this.writer = writer;
+		this.day = day;
+		this.count = count;
+		this.content = content;
+	}
 	
 	public String getNo() {
 		return no;
@@ -49,5 +65,14 @@ public class ListDTO {
 	public void setCount(String count) {
 		this.count = count;
 	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 	
 }
