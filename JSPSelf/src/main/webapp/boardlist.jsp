@@ -10,7 +10,7 @@
 <body>
 <c:forEach var="list" items="${list}">
   no:${list.no}  
-  <a href="/ListViewController?no=${list.no}" id="${list.no}">제목:${list.title}</a>
+  <a href="/ListView.do?no=${list.no}" id="${list.no}">제목:${list.title}</a>
     작성자:${list.writer}  작성일:${list.day}  조회수:${list.count} <br/>
 </c:forEach>
 <button type="button" onclick="location.href='/listadd.jsp'">글 작성</button>

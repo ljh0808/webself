@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="/enter/join" method="post">
+<form action="join.do" method="post">
 아이디<input type="text" name="id" id="id" required="required"/> <button type="button">중복체크</button> <br/>
 비밀번호<input type="password" name="pwd" id="pwd" required="required"/><br/>
 이름 <input type="text" name="name" id="name" required="required"/><br/>
