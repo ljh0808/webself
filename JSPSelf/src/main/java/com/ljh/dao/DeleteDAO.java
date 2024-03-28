@@ -35,6 +35,7 @@ public class DeleteDAO {
 			st2.setInt(1,a);
 			System.out.println("st2.steInt실행");
 			st2.executeUpdate();
+			//con.commit(); 삭제커밋
 			
 			
 			

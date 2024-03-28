@@ -47,7 +47,8 @@ public class ListDAO {
 	
 	public  void updateList(ListDTO dto){
 		String url = "jdbc:oracle:thin:@localhost:1521:ORCL";
-		String sql = "UPDATE LIST SET TITLE=?,CONTENT=? WHERE NO=?";
+		String sql = "UPDATE LIST SET TITLE=?,CONTENT=? WHERE "
+				+ "NO=(SELECT NO FROM(SELECT ROWNUM RNUM1,NO FROM(SELECT ROWNUM,NO FROM LIST ORDER BY DAY)) WHERE RNUM1=?)";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");

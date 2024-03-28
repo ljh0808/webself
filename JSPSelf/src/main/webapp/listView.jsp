@@ -17,5 +17,5 @@
 </c:forEach>
 
 </table>
-<button type="button" onclick="location.href='/boardlist.jsp'">글목록</button></body>
+<button type="button" onclick="location.href='/list.do'">글목록</button>
 </html>

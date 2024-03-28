@@ -23,11 +23,9 @@ public class ListAddCommand implements Command {
 		HttpSession session = request.getSession(false);
 		String writer = (String)session.getAttribute("id");
 		ListDTO dto;
-		if(writer !=null) {
-		dto = new ListDTO(title,content,writer);}
-		else {
-			dto = new ListDTO(title,content);
-		}
+		
+		dto = new ListDTO(title,content,writer);
+		
 		ListAddDAO dao = new ListAddDAO();
 		dao.Addlist(dto);
 		
