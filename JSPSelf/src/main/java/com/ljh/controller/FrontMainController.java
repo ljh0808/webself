@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.Command;
+import command.DeleteCommand;
 import command.EnterCommand;
 import command.JoinCommand;
 import command.ListAddCommand;
@@ -34,7 +35,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String com = request.getRequestURI();
 		String viewpage = null;
 		Command command = null;
-		System.out.println(com);
 		
 		switch(com) {
 		case "/enter.do" :
@@ -69,6 +69,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			break;
 		case "/ListUpdate.do" :
 			command = new ListUpdateCommand();
+			command.execute(request, response);
+			viewpage = (String)request.getAttribute("viewpage");
+			break;
+		case "/ListDelete.do" :
+			command = new DeleteCommand();
 			command.execute(request, response);
 			viewpage = (String)request.getAttribute("viewpage");
 			break;

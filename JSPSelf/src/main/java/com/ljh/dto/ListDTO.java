@@ -10,7 +10,10 @@ public class ListDTO {
 	public String count;
 	public String content;
 	
-	
+	public ListDTO(String title,String content) {
+		this.title=title;
+		this.content = content;
+	}
 	public ListDTO(String no,String title,String content) {
 		this.no = no;
 		this.title=title;

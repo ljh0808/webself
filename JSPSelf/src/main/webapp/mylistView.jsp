@@ -8,14 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
 <c:forEach var="list" items="${list}">
   no:${list.no}  
-<th>제목:${list.title}
+제목:${list.title}
     작성자:${list.writer}  작성일:${list.day}  조회수:${list.count} <br/>
-    내용 :${list.content}</th>
+    내용 :${list.content}
+<a href="/listupdate.jsp?no=${list.no}" id="${list.no}"><button>수정</button></a>
+<form action="/ListDelete.do" method="post">
+<input type="submit" name="delete" id="delete" value="삭제"/>
+<input type="hidden" id="num" name="num" value="${list.no}"/>
+</form>
 </c:forEach>
 
-</table>
-<button type="button" onclick="location.href='/boardlist.jsp'">글목록</button></body>
+</body>
 </html>

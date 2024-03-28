@@ -12,7 +12,11 @@ public class ListCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		ArrayList<ListDTO> list = ListDAO.getList();
+		
+		
+		ArrayList<ListDTO> list = new ArrayList<>();
+		ListDAO dao = new ListDAO();		
+		list = dao.getList();
 		request.setAttribute("list", list);
 		request.setAttribute("viewpage", "/boardlist.jsp");
 		

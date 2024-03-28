@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.ljh.SqlD;
 import com.ljh.dto.MainDTO;
 
 public class MainDAO {
@@ -15,13 +17,12 @@ public class MainDAO {
 	public static Connection con;
 	
 	//db접속
-	public static void  mainEnter(MainDTO dto) throws SQLException,ClassNotFoundException{
-		String url="jdbc:oracle:thin:@localhost:1521:ORCL";
+	public  void  mainEnter(MainDTO dto) throws SQLException,ClassNotFoundException{
 		String sql="SELECT ID,PWD FROM MEMBER WHERE ID=?";
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection(url,"C##NEWLEC1","1234");
-			
+			Class.forName(SqlD.DRIVER);
+			Connection con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
+
 			st=con.prepareStatement(sql);
 			st.setString(1, dto.getId());
 			System.out.println("메인DAO접근");

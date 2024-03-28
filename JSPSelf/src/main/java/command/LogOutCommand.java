@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 public class LogOutCommand implements Command {
 @Override
 public void execute(HttpServletRequest request, HttpServletResponse response) {
-	HttpSession hs = request.getSession(); //
+	HttpSession hs = request.getSession(false); //
 	hs.invalidate();
 	request.setAttribute("viewpage", "/main.jsp");
 	

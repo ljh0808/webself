@@ -5,26 +5,26 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.ljh.SqlD;
 import com.ljh.dto.JoinDTO;
 
 
 public class JoinDAO {
-	public static String url;
-	public static String sql;
+
 	
 	
-	public static Boolean joinMember(JoinDTO dto) throws ClassNotFoundException,SQLException {
+	public  Boolean joinMember(JoinDTO dto) throws ClassNotFoundException,SQLException {
 		
+		String sql=null;
 		String id =dto.getId();
 		String pwd =dto.getPwd();
 		String name =dto.getName();
 		String email =dto.getEmail(); //dto에 저장된값 변수에저장
 		
-		url = "jdbc:oracle:thin:@localhost:1521:ORCL";
 		sql = "INSERT INTO MEMBER VALUES(?,?,?,?)";
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Class.forName(SqlD.DRIVER);
 		
-		Connection con = DriverManager.getConnection(url,"C##NEWLEC1","1234");
+		Connection con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
 		System.out.println("연동성공");
 		con.setAutoCommit(false); //오토커밋 off
 		

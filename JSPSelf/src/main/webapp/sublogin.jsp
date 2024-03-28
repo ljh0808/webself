@@ -11,7 +11,7 @@
 <h2>sub 로그인페이지</h2><br/>
 ${msg} <br/>
 
-<form action="/enter/main" method="post">
+<form action="enter.do" method="post">
 아이디: <input type="text" id="id" name="id"/>
 비밀번호: <input type="password" id="pwd" name="pwd"/>
 <input type="submit" id="enter" name="enter" value="접속"/>

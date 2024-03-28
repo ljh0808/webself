@@ -16,12 +16,18 @@ public void execute(HttpServletRequest request, HttpServletResponse response) {
 	String pwd = request.getParameter("pwd"); //입력받은값 저장
 	HttpSession hs = request.getSession();   //세션생성
 	MainDTO dto =  new MainDTO(id,pwd); // dto생성자이용 ,데이터삽입
+	HttpSession session = request.getSession();
 	
 	try {
-		MainDAO.mainEnter(dto);    //DAO메서드 이용 db접속및 입력받은값 저장
+		MainDAO dao = new MainDAO();
+		dao.mainEnter(dto);    //DAO메서드 이용 db접속및 입력받은값 저장
 		if(MainDAO.MainCheck(dto)) {
 			System.out.println("아이디 비밀번호 일치");
-			hs.setAttribute("id", id);
+			session.setAttribute("id", id);
+			String a=(String)session.getAttribute("id");
+			String b=(String)request.getAttribute("id");
+			System.out.println(a);
+			System.out.println(b);
 			request.setAttribute("viewpage", "/loginOk.jsp");
 		}
 		else {
