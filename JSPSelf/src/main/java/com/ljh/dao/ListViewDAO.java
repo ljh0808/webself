@@ -12,8 +12,11 @@ import com.ljh.SqlD;
 import com.ljh.dto.ListDTO;
 
 public class ListViewDAO {
+	Connection con = null;
+	Statement st = null;
+	ResultSet rs = null;
 	
-	public  ArrayList<ListDTO> ListView(int num) {
+	public  ArrayList<ListDTO> ListView(int num) throws SQLException {
 //	String sql = "SELECT NO,TITLE,WRITER,DAY,COUNT,CONTENT FROM LIST WHERE NO="+num
 //			+"ORDER BY DAY DESC";
 	String sql = "SELECT RNUM1,TITLE,WRITER,DAY,COUNT,CONTENT FROM "
@@ -23,11 +26,11 @@ public class ListViewDAO {
 	
 		try {
 			Class.forName(SqlD.DRIVER);
-			Connection con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
+			con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
 
 			System.out.println("연동성공 ListViewDAO");
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(sql);
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
 			System.out.println("rs");
 			ArrayList<ListDTO> list = new ArrayList<>();
 			System.out.println("여기까지는 문제없음");
@@ -47,10 +50,12 @@ public class ListViewDAO {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("SQL예외발생");
-		} 
+		} finally {
+			if(rs!=null) {rs.close();}
+			if(st!=null) {st.close();}
+			if(con!=null) {con.close();}
+		}
+		
 		return null;
 	}
 }

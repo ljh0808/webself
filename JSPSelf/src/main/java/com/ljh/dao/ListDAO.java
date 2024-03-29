@@ -13,17 +13,19 @@ import com.ljh.SqlD;
 import com.ljh.dto.ListDTO;
 
 public class ListDAO {
-
-	public  ArrayList<ListDTO> getList() {
+	Connection con;
+	Statement st;
+	ResultSet rs;
+	public  ArrayList<ListDTO> getList() throws SQLException {
 		String sql = "SELECT ROWNUM,TITLE,WRITER,DAY,COUNT FROM"
 				+ "(SELECT ROWNUM,TITLE,WRITER,DAY,COUNT FROM LIST ORDER BY DAY) "
 				+ "ORDER BY ROWNUM DESC";
 //		"SELECT ROWNUM,TITLE,WRITER,DAY,COUNT FROM(SELECT ROWNUM,NO,TITLE,WRITER,DAY,COUNT ORDER BY DAY) ORDER BY ROWNUM DESC"
 		try {
 			Class.forName(SqlD.DRIVER);
-			Connection con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(sql);
+			con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
 			ArrayList<ListDTO> list = new ArrayList<>();
 			
 			while(rs.next()) {
@@ -38,21 +40,23 @@ public class ListDAO {
 			return list;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} finally {
+			if(rs!=null) {rs.close();}
+			if(st!=null) {st.close();}
+			if(con!=null) {con.close();}
 		}
 		return null;
 	}
 	
 	
-	public  void updateList(ListDTO dto){
+	public  void updateList(ListDTO dto) throws SQLException{
 		String url = "jdbc:oracle:thin:@localhost:1521:ORCL";
 		String sql = "UPDATE LIST SET TITLE=?,CONTENT=? WHERE "
 				+ "NO=(SELECT NO FROM(SELECT ROWNUM RNUM1,NO FROM(SELECT ROWNUM,NO FROM LIST ORDER BY DAY)) WHERE RNUM1=?)";
 		
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"C##NEWLEC1","1234");
+			Class.forName(SqlD.DRIVER);
+			Connection con = DriverManager.getConnection(url,SqlD.USERID,SqlD.USERPWD);
 			System.out.println("연동성공");
 			PreparedStatement st = con.prepareStatement(sql);
 			con.setAutoCommit(false);
@@ -66,8 +70,9 @@ public class ListDAO {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} finally {
+			if(st!=null) {st.close();}
+			if(con!=null) {con.close();}
 		}
 		
 	}

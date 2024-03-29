@@ -1,5 +1,7 @@
 package command;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,8 +18,12 @@ public class ListUpdateCommand implements Command {
 		System.out.println(num);
 		ListDTO dto = new ListDTO(num,title,content);
 		ListDAO dao = new ListDAO();
-		dao.updateList(dto);
-		request.setAttribute("viewpage", "/ListView.do");		
+		try {
+			dao.updateList(dto);
+			request.setAttribute("viewpage", "/ListView.do");		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

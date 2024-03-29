@@ -1,5 +1,7 @@
 package command;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,8 +12,13 @@ public class DeleteCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		DeleteDAO dao = new DeleteDAO();
 		int num = Integer.parseInt(request.getParameter("num"));
-		dao.deletelist(num);
-		request.setAttribute("viewpage","/List.do");
+		try {
+			dao.deletelist(num);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("viewpage","/list.do");
+		System.out.println("delete 종료");
 	}
 
 }

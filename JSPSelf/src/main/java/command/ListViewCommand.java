@@ -1,5 +1,6 @@
 package command;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,15 @@ public class ListViewCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		int num = Integer.parseInt(request.getParameter("no"));
+		
 		ArrayList<ListDTO> list = new ArrayList<>();
 		ListViewDAO dao = new ListViewDAO();
-		list = dao.ListView(num);
+		
+		try {
+			list = dao.ListView(num);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		request.setAttribute("list", list);
 		
 		HttpSession session = request.getSession(false);
@@ -28,14 +35,14 @@ public class ListViewCommand implements Command {
 		System.out.println(writer+"writer 값");
 		
 
-		if(writer != null && userId != null) {
-			if(userId.equals(writer)) {
+		if(writer != null && userId != null && userId.equals(writer)) {
 				request.setAttribute("viewpage","/mylistView.jsp");
 				System.out.println("본인 게시글 조회");
-			}
-		}else {
-		request.setAttribute("viewpage","/listView.jsp");
-		System.out.println("타인 게시글 조회");	
+				}
+			else{
+				request.setAttribute("viewpage","/listView.jsp");
+				System.out.println("타인 게시글 조회");	
+				}
 		}
 }
-}
+

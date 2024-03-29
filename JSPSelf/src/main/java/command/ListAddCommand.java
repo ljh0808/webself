@@ -1,5 +1,6 @@
 package command;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,18 +25,22 @@ public class ListAddCommand implements Command {
 		String writer = (String)session.getAttribute("id");
 		ListDTO dto;
 		
-		dto = new ListDTO(title,content,writer);
+		dto = new ListDTO(title,writer,content);
 		
 		ListAddDAO dao = new ListAddDAO();
-		dao.Addlist(dto);
+		try {
+			dao.Addlist(dto);
+			System.out.println(dto.getContent());
+			System.out.println(dto.getTitle());
+			ArrayList<ListDTO> list = new ArrayList<>(); 
+			ListDAO Ldao = new ListDAO();		
+			list = Ldao.getList();
+			request.setAttribute("list", list);
+			request.setAttribute("viewpage", "/boardlist.jsp");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		System.out.println(dto.getContent());
-		System.out.println(dto.getTitle());
-		ArrayList<ListDTO> list = new ArrayList<>(); 
-		ListDAO Ldao = new ListDAO();		
-		list = Ldao.getList();
-		request.setAttribute("list", list);
-		request.setAttribute("viewpage", "/boardlist.jsp");
 	}
 
 }

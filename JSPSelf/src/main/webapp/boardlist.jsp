@@ -17,5 +17,6 @@
 </c:forEach>
 </table>
 <button type="button" onclick="location.href='/listadd.jsp'">글 작성</button>
+<button type="button" onclick="location.href='/loginOk.jsp'">메인페이지</button>
 </body>
 </html>

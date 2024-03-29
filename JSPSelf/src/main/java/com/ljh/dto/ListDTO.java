@@ -14,11 +14,13 @@ public class ListDTO {
 		this.title=title;
 		this.content = content;
 	}
-	public ListDTO(String no,String title,String content) {
-		this.no = no;
+	public ListDTO(String title,String writer,String content) {
+		this.writer = writer;
 		this.title=title;
 		this.content = content;
 	}
+	
+	
 	
 	public ListDTO(String no,String title,String writer,Date day,String count){
 		this.no = no;

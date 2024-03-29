@@ -10,15 +10,14 @@ import com.ljh.SqlD;
 import com.ljh.dto.ListDTO;
 
 public class ListAddDAO {
-	public void Addlist(ListDTO dto) {
-		Connection con = null;
-		PreparedStatement st = null;
-		String sql = "INSERT INTO LIST(NO,TITLE,WRITER,COUNT,CONTENT) VALUES(LIST_SEQ.NEXTVAL,?,?,?,?)";
+	Connection con = null;
+	PreparedStatement st = null;
+	public void Addlist(ListDTO dto) throws SQLException {
+		String sql = "INSERT INTO LIST(NO,TITLE,WRITER,COUNT,CONTENT) VALUES(LIST_SEQ.NEXTVAL,?,?,0,?)";
 		
 		
 		String title = dto.getTitle();
 		String writer = dto.getWriter();
-		String count = dto.getCount();
 		String content = dto.getContent();
 		try {
 			Class.forName(SqlD.DRIVER);
@@ -29,17 +28,17 @@ public class ListAddDAO {
 			
 			st.setString(1,title);
 			st.setString(2,writer);
-			st.setString(3,count);
-			st.setString(4,content);
+			st.setString(3,content);
 			
 			st.executeUpdate(); //
 			con.commit();
 			}
 			
-		catch (ClassNotFoundException e) {
+		 catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}finally {
+			if(st!=null) {st.close();}
+			if(con!=null) {con.close();}
 		}
 		
 	

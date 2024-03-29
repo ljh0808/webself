@@ -25,9 +25,7 @@ public class JoinCommand implements Command {
 			JoinDAO dao = new JoinDAO();
 			a =dao.joinMember(dto); //JoinDAO메서드 이용 T,F값 변수a에 저장
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		

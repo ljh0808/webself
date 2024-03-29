@@ -12,9 +12,9 @@ import com.ljh.dto.MainDTO;
 public class MainDAO {
 	public static String id = null;
 	public static String pwd = null;
-	public static PreparedStatement st;
-	public static ResultSet rs;
-	public static Connection con;
+	public PreparedStatement st;
+	public ResultSet rs;
+	public Connection con;
 	
 	//db접속
 	public  void  mainEnter(MainDTO dto) throws SQLException,ClassNotFoundException{

@@ -1,5 +1,6 @@
 package command;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +17,13 @@ public class ListCommand implements Command {
 		
 		ArrayList<ListDTO> list = new ArrayList<>();
 		ListDAO dao = new ListDAO();		
-		list = dao.getList();
-		request.setAttribute("list", list);
-		request.setAttribute("viewpage", "/boardlist.jsp");
+		try {
+			list = dao.getList();
+			request.setAttribute("list", list);
+			request.setAttribute("viewpage", "/boardlist.jsp");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		
 		
