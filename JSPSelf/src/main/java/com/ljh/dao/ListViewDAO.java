@@ -2,6 +2,7 @@ package com.ljh.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,9 +13,11 @@ import com.ljh.SqlD;
 import com.ljh.dto.ListDTO;
 
 public class ListViewDAO {
-	Connection con = null;
-	Statement st = null;
-	ResultSet rs = null;
+	Connection con;
+	Statement st;
+	PreparedStatement ps;
+	ResultSet rs;
+	
 	
 	public  ArrayList<ListDTO> ListView(int num) throws SQLException {
 //	String sql = "SELECT NO,TITLE,WRITER,DAY,COUNT,CONTENT FROM LIST WHERE NO="+num
@@ -38,6 +41,8 @@ public class ListViewDAO {
 			ArrayList<ListDTO> list = new ArrayList<>();
 			System.out.println("여기까지는 문제없음");
 			
+			
+			
 			while(rs.next()) {
 				String no = rs.getString(1);
 				String title = rs.getString(2);
@@ -60,5 +65,17 @@ public class ListViewDAO {
 		}
 		
 		return null;
+	}
+	
+	public void listcount(int num) throws SQLException {
+		String sql = "UPDATE LIST SET COUNT = COUNT+1 WHERE NO=(SELECT NO FROM NO_VIEW WHERE RNUM1=?)";
+
+		con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
+		ps = con.prepareStatement(sql);
+		ps.setInt(1, num);
+		ps.executeUpdate();
+		System.out.println("조회수증가");
+		
+		
 	}
 }

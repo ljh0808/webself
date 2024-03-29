@@ -1,5 +1,6 @@
 package command;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -36,10 +37,11 @@ public class ListAddCommand implements Command {
 			ListDAO Ldao = new ListDAO();		
 			list = Ldao.getList();
 			request.setAttribute("list", list);
-			request.setAttribute("viewpage", "/boardlist.jsp");
+			request.setAttribute("viewpage", "/list.do");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 		
 	}
 

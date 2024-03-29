@@ -19,30 +19,33 @@ public class ListViewCommand implements Command {
 		ListViewDAO dao = new ListViewDAO();
 		
 		try {
+			dao.listcount(num);
+			
 			list = dao.ListView(num);
+			request.setAttribute("list", list);
+			
+			HttpSession session = request.getSession(false);
+			String userId = (String)session.getAttribute("id");
+			String writer = null;
+			System.out.println(userId + "유저세션값" );
+			for(ListDTO a: list) {
+				writer = a.writer;
+			}
+			System.out.println(writer+"writer 값");
+			
+			
+			if(writer != null && userId != null && userId.equals(writer)) {
+				request.setAttribute("viewpage","/mylistView.jsp");
+				System.out.println("본인 게시글 조회");
+			}
+			else{
+//				dao.listcount(num);
+				request.setAttribute("viewpage","/listView.jsp");
+				System.out.println("타인 게시글 조회");	
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("list", list);
-		
-		HttpSession session = request.getSession(false);
-		String userId = (String)session.getAttribute("id");
-		String writer = null;
-		System.out.println(userId + "유저세션값" );
-		for(ListDTO a: list) {
-				writer = a.writer;
-		}
-		System.out.println(writer+"writer 값");
-		
-
-		if(writer != null && userId != null && userId.equals(writer)) {
-				request.setAttribute("viewpage","/mylistView.jsp");
-				System.out.println("본인 게시글 조회");
-				}
-			else{
-				request.setAttribute("viewpage","/listView.jsp");
-				System.out.println("타인 게시글 조회");	
-				}
 		}
 }
 
