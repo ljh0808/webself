@@ -1,12 +1,10 @@
 package com.ljh.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
-import com.ljh.SqlD;
+import com.ljh.DBManager;
 import com.ljh.dto.ListDTO;
 
 public class ListAddDAO {
@@ -20,8 +18,7 @@ public class ListAddDAO {
 		String writer = dto.getWriter();
 		String content = dto.getContent();
 		try {
-			Class.forName(SqlD.DRIVER);
-			con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
+			con = DBManager.getConnection();
 			System.out.println("게시판 작성연동성공");
 			con.setAutoCommit(false);
 			st = con.prepareStatement(sql);
@@ -34,11 +31,8 @@ public class ListAddDAO {
 			con.commit();
 			}
 			
-		 catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}finally {
-			if(st!=null) {st.close();}
-			if(con!=null) {con.close();}
+		 finally {
+			DBManager.close(con, st);
 		}
 		
 	

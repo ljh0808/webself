@@ -1,6 +1,5 @@
 package command;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,6 +15,7 @@ public class ListAddCommand implements Command {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		
 		
 		
 		
@@ -37,7 +37,7 @@ public class ListAddCommand implements Command {
 			ListDAO Ldao = new ListDAO();		
 			list = Ldao.getList();
 			request.setAttribute("list", list);
-			request.setAttribute("viewpage", "/list.do");
+			request.setAttribute("redirect", "/list.do");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

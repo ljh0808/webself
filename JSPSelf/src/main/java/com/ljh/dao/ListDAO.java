@@ -1,7 +1,6 @@
 package com.ljh.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.ljh.SqlD;
+import com.ljh.DBManager;
 import com.ljh.dto.ListDTO;
 
 public class ListDAO {
@@ -25,8 +24,8 @@ public class ListDAO {
 		String sql="SELECT RNUM1,TITLE,WRITER,DAY,COUNT FROM NO_VIEW ORDER BY RNUM1 DESC";
 		
 		try {
-			Class.forName(SqlD.DRIVER);
-			con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
+			con = DBManager.getConnection();
+			
 			st = con.createStatement();
 			rs = st.executeQuery(sql);
 			ArrayList<ListDTO> list = new ArrayList<>();
@@ -41,14 +40,9 @@ public class ListDAO {
 
 			}
 			return list;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} finally {
-			if(rs!=null) {rs.close();}
-			if(st!=null) {st.close();}
-			if(con!=null) {con.close();}
+			DBManager.close(con, st, rs);
 		}
-		return null;
 	}
 	
 	
@@ -58,8 +52,8 @@ public class ListDAO {
 				+ "NO=(SELECT NO FROM(SELECT ROWNUM RNUM1,NO FROM(SELECT ROWNUM,NO FROM LIST ORDER BY DAY)) WHERE RNUM1=?)";
 		
 		try {
-			Class.forName(SqlD.DRIVER);
-			Connection con = DriverManager.getConnection(url,SqlD.USERID,SqlD.USERPWD);
+			con = DBManager.getConnection();
+			
 			System.out.println("연동성공");
 			PreparedStatement st = con.prepareStatement(sql);
 			con.setAutoCommit(false);
@@ -71,11 +65,8 @@ public class ListDAO {
 				con.commit();
 			}
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			if(st!=null) {st.close();}
-			if(con!=null) {con.close();}
+		}  finally {
+			DBManager.close(con, st);
 		}
 		
 	}

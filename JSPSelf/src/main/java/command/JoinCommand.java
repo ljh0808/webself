@@ -27,6 +27,8 @@ public class JoinCommand implements Command {
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 		
 		if(a) {

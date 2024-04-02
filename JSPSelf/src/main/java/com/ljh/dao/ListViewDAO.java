@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.ljh.DBManager;
 import com.ljh.SqlD;
 import com.ljh.dto.ListDTO;
 
@@ -31,9 +32,8 @@ public class ListViewDAO {
 	String sql ="SELECT RNUM1,TITLE,WRITER,DAY,COUNT,CONTENT FROM NO_VIEW WHERE RNUM1="+num;
 	
 		try {
-			Class.forName(SqlD.DRIVER);
-			con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
-
+			con = DBManager.getConnection();
+			
 			System.out.println("연동성공 ListViewDAO");
 			st = con.createStatement();
 			rs = st.executeQuery(sql);
@@ -56,15 +56,11 @@ public class ListViewDAO {
 			}
 			return list;
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null) {rs.close();}
-			if(st!=null) {st.close();}
-			if(con!=null) {con.close();}
+		}  finally {
+			DBManager.close(con, st, rs);
 		}
 		
-		return null;
+	
 	}
 	
 	public void listcount(int num) throws SQLException {

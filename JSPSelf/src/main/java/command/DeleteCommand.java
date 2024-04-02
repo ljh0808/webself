@@ -17,7 +17,7 @@ public class DeleteCommand implements Command {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("viewpage","/list.do");
+		request.setAttribute("redirect","/list.do");
 		System.out.println("delete 종료");
 	}
 

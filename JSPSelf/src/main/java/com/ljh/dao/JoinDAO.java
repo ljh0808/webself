@@ -1,20 +1,18 @@
 package com.ljh.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.ljh.SqlD;
 import com.ljh.dto.JoinDTO;
-
+import com.ljh.DBManager;
 
 public class JoinDAO {
 
 	Connection con;
 	PreparedStatement st;
 	
-	public  Boolean joinMember(JoinDTO dto) throws SQLException {
+	public  Boolean joinMember(JoinDTO dto) throws SQLException, ClassNotFoundException {
 		
 		String sql=null;
 		String id =dto.getId();
@@ -23,9 +21,10 @@ public class JoinDAO {
 		String email =dto.getEmail(); //dto에 저장된값 변수에저장
 		
 		sql = "INSERT INTO MEMBER VALUES(?,?,?,?)";
+		con = DBManager.getConnection();
+		System.out.println("DBCP 메서드 불러옴");
+		
 		try {
-			Class.forName(SqlD.DRIVER);
-			con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
 			System.out.println("연동성공");
 			con.setAutoCommit(false); //오토커밋 off
 			
@@ -46,11 +45,9 @@ public class JoinDAO {
 			
 			
 			return true;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}finally {
-		if(st!=null) {st.close();}
-		if(con!=null) {con.close();}
-		} return false;
+		}
+		finally {	
+		DBManager.close(con,st);
+		}
 	}
 }

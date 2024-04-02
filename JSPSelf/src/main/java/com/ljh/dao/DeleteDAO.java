@@ -1,13 +1,12 @@
 package com.ljh.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.ljh.SqlD;
+import com.ljh.DBManager;
 
 public class DeleteDAO {
 	Connection con;
@@ -23,8 +22,8 @@ public class DeleteDAO {
 	
 		
 		try {
-			Class.forName(SqlD.DRIVER);
-			con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
+			con = DBManager.getConnection();
+			
 			System.out.println("delete 연동");
 			con.setAutoCommit(false); //오토커밋 off
 			st1 = con.createStatement();
@@ -45,13 +44,8 @@ public class DeleteDAO {
 			
 			
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs1!=null) {rs1.close();}
-			if(st2!=null) {st2.close();}
-			if(st1!=null) {st1.close();}
-			if(con!=null) {con.close();}
+		}finally {
+			DBManager.close(con,st1,st2,rs1);
 		}
 		
 	}

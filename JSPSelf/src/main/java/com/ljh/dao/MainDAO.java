@@ -1,12 +1,11 @@
 package com.ljh.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.ljh.SqlD;
+import com.ljh.DBManager;
 import com.ljh.dto.MainDTO;
 
 public class MainDAO {
@@ -20,9 +19,8 @@ public class MainDAO {
 	public  void  mainEnter(MainDTO dto) throws SQLException,ClassNotFoundException{
 		String sql="SELECT ID,PWD FROM MEMBER WHERE ID=?";
 		try {
-			Class.forName(SqlD.DRIVER);
-			Connection con = DriverManager.getConnection(SqlD.URL,SqlD.USERID,SqlD.USERPWD);
-
+			con=DBManager.getConnection();
+			
 			st=con.prepareStatement(sql);
 			st.setString(1, dto.getId());
 			System.out.println("메인DAO접근");

@@ -35,6 +35,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String com = request.getRequestURI();
 		String viewpage = null;
 		Command command = null;
+		String redirect = null;
 		
 		switch(com) {
 		case "/enter.do" :
@@ -60,7 +61,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		case "/ListAdd.do" :
 			command = new ListAddCommand();
 			command.execute(request, response);
-			viewpage = (String)request.getAttribute("viewpage");
+			redirect = (String)request.getAttribute("redirect");
+//			viewpage = (String)request.getAttribute("viewpage");
 			break;
 		case "/logout.do" :
 			command = new LogOutCommand();
@@ -75,15 +77,18 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		case "/ListDelete.do" :
 			command = new DeleteCommand();
 			command.execute(request, response);
-			viewpage = (String)request.getAttribute("viewpage");
+			redirect = (String)request.getAttribute("redirect");
 			break;
 			
 		}
 		
-		
+		if(redirect !=null) {
+			response.sendRedirect(redirect);
+		}
+		if(viewpage !=null) {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewpage);
 		dispatcher.forward(request, response);
-		
+		}
 	}
 }
 	
